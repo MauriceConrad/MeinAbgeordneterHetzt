@@ -1,0 +1,118 @@
+[
+  {
+    "name": "message",
+    "keywords": [
+      "message",
+      "Nachricht",
+      "Beschwerde",
+      "Vorfall",
+      "Sachverhalt"
+    ],
+    "fill": "generate/message"
+  },
+  {
+    "name": "checkbox",
+    "keywords": [
+      "checkbox"
+    ],
+    "fill": "generate/checkbox"
+  },
+  {
+    "name": "mail",
+    "keywords": [
+      "email",
+      "mail",
+      "E-Mail"
+    ],
+    "fill": "generate/mail"
+  },
+  {
+    "name": "phone",
+    "keywords": [
+      "telefon",
+      "nummer",
+      "phone"
+    ],
+    "fill": "generate/phone"
+  },
+  {
+    "name": "subject",
+    "keywords": [
+      "subject",
+      "betreff",
+      "grund"
+    ],
+    "fill": "generate/subject"
+  },
+  {
+    "name": "school",
+    "keywords": [
+      "[^a-z]?school",
+      "university",
+      "schule"
+    ],
+    "fill": "generate/school"
+  },
+  {
+    "name": "name",
+    "keywords": [
+      "[^a-z]?name"
+    ],
+    "fill": "generate/name"
+  },
+  {
+    "name": "firstname",
+    "keywords": [
+      "vorname"
+    ],
+    "fill": "generate/name"
+  },
+  {
+    "name": "lastname",
+    "keywords": [
+      "nachname"
+    ],
+    "fill": "generate/name"
+  },
+  {
+    "name": "city",
+    "keywords": [
+      "[^a-z]?city",
+      "Stadt",
+      "Ort"
+    ],
+    "fill": "generate/city"
+  },
+  {
+    "name": "date",
+    "keywords": [
+      "[^a-z]date",
+      "datum",
+      "zeitpunt"
+    ],
+    "fill": "generate/date"
+  },
+  {
+    "name": "select",
+    "keywords": [
+      "select"
+    ],
+    "fill": "generate/select"
+  },
+  {
+    "name": "captcha",
+    "keywords": [
+      "captcha",
+      "response"
+    ],
+    "fill": "generate/captcha"
+  },
+  {
+    "name": "button",
+    "keywords": [
+
+      "button"
+    ],
+    "fill": "generate/button"
+  }
+]

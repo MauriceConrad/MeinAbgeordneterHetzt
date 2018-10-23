@@ -1,0 +1,63 @@
+[
+  {
+    "id": "AfD_Brandenburg",
+    "title": "AfD Brandenburg",
+    "url": "https://neutrale-schulen-brandenburg.de/#verstoss",
+    "method": "form",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/4/45/Brandenburg_Wappen.svg",
+    "disabled": true
+  },
+  {
+    "id": "AfD_Berlin",
+    "title": "AfD Berlin",
+    "url": "https://www.123formbuilder.com/sfnew2.php?s=4349129",
+    "method": "frame",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Coat_of_arms_of_Berlin.svg",
+    "disabled": false,
+    "content": [
+      {
+        "tagName": "input",
+        "name": "control46766989",
+        "type": "name",
+        "defaultValue": "",
+        "options": []
+      },
+      {
+        "tagName": "input",
+        "name": "control46766914",
+        "type": "mail",
+        "defaultValue": "",
+        "options": []
+      },
+      {
+        "tagName": "input",
+        "name": "control46766915",
+        "type": "phone",
+        "defaultValue": "",
+        "options": []
+      },
+      {
+        "tagName": "textarea",
+        "name": "control46766916",
+        "type": "message",
+        "defaultValue": "",
+        "options": []
+      }
+    ]
+  },
+  {
+    "id": "AfD_Sachsen",
+    "title": "AfD Sachsen",
+    "url": "https://lehrersos.de/melden/",
+    "method": "form",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Coat_of_arms_of_Saxony.svg"
+  },
+  {
+    "id": "AfD_Hamburg",
+    "title": "AfD Hamburg",
+    "url": "https://afd-fraktion-hamburg.de/tipps-zum-vorgehen-bei-verstoessen/#cntctfrm_contact_form",
+    "method": "form",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/5/5d/DEU_Hamburg_COA.svg",
+    "disabled": false
+  }
+]

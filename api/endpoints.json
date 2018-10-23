@@ -1,0 +1,7 @@
+{
+  "form": "./api/form",
+  "services": "./api/services",
+  "quote": "./api/quote",
+  "content": "./api/content",
+  "action": "./api/count"
+}

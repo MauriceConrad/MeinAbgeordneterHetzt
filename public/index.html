@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Die AfD möchte über Hetze informiert werden. Da helfen wir doch gerne! #meinabgeordneterhetzt #piraten">
+    <link rel="shortcut icon" href="favicon.ico" />
+  	<meta property="og:type" content="website" />
+    <meta property="og:image" content="https://mein-abgeordneter-hetzt.de/img/preview.jpg">
+  	<meta property="og:title" content="Mein Abgeordneter hetzt!" />
+  	<meta property="og:description" content="Die AfD möchte über Hetze informiert werden. Da helfen wir doch gerne!" />
+  	<meta name="referrer" content="no-referrer">
+  	<meta name="twitter:card" content="summary_large_image"></meta>
+  	<meta property="twitter:description" content="Die AfD möchte über Hetze informiert werden. Da helfen wir doch gerne!" />
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" charset="utf-8"></script>-->
+
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1" charset="utf-8"></script>-->
+    <link rel="stylesheet" href="css/master.css">
+    <link href="js/shariff/shariff.complete.css" rel="stylesheet">
+
+    <script src="js/vue.js" charset="utf-8"></script>
+    <script src="js/helper.js" charset="utf-8"></script>
+    <script src="js/app.js" charset="utf-8"></script>
+    <script src="js/hetz.js" charset="utf-8" async></script>
+    <!--<script src="polyfill/promise.js" charset="utf-8"></script>-->
+
+
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <script src="js/lib.js" charset="utf-8"></script>-->
+    <title>Mein Abgeordneter hetzt!</title>
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>Mein Abgeordneter hetzt!</h1>
+      </div>
+      <div class="view-main">
+        <div class="quote-preview">
+          <div class="quote-inner">
+            <span v-if="quoteReady">
+              {{ quote.message }}
+            </span>
+            <div class="spinner spinner-quote" v-if="!quoteReady">
+              <div class="double-bounce1"></div>
+              <div class="double-bounce2"></div>
+            </div>
+          </div>
+          <br>
+          <div class="quote-author">
+            {{ quote.author }}
+          </div>
+
+        </div>
+        <!--<div class="form-description">
+          Die AfD möchte gerne über Hetze benachrichtigt werden. Da helfen wir doch gerne!
+        </div>-->
+
+        <ul class="group-select-item">
+          <li v-for="service in services" v-bind:class="{ 'active': services.indexOf(service) == activeService }" v-on:click="activeService = services.indexOf(service); loadForm();">
+            <div class="icon">
+              <img v-bind:src="service.logo" alt="Logo">
+            </div>
+            <div class="label">
+              {{ service.title }}
+            </div>
+          </li>
+        </ul>
+
+        <form class="hatespeech-form" v-bind:action="service.url" enctype="multipart/form-data" method="post" target="_blank">
+          <div class="form-inner" v-bind:style="{ display: loading ? 'none' : 'block' }">
+
+          </div>
+          <div class="load-screen" v-if="loading">
+            <div class="spinner">
+              <div class="double-bounce1"></div>
+              <div class="double-bounce2"></div>
+            </div>
+          </div>
+          <button type="submit" class="btn" v-on:click="send">Diese Hetze der AfD melden!</button>
+          <button class="btn" v-on:click="newHatespeech">Diesen Hetzer kannte ich schon! Neu würfeln!</button>
+
+          <div class="reported-counter">
+            {{ reportedCount }} Hetzer der AfD gemeldet!
+          </div>
+
+        </form>
+        <div class="new-project">
+          <div class="alert-info">
+            Neue Aktion !
+          </div>
+          <h2>
+            <!--<div class="inner-text-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 100 100" version="1.1">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" version="1.1" width="150%" height="150%" x="-25%" y="-24%" viewBox="-0.567 -0.567 256 256" overflow="visible" enable-background="new -0.567 -0.567 256 256" xml:space="preserve">
+                 <path style="fill: #fff;" fill="#333" d="M126.265,55.796c-14.248,0-25.147,1.39-33.31,3.194V43.104h-10.31v18.797c-7.486,2.666-10.512,5.196-10.512,5.196    s4.312-0.361,10.512,0.131v97.745c-2.418,4.448-3.968,9.744-3.968,16.141c0,17.646,8.528,33.511,8.528,33.511    s-2.579-9.919-2.532-16.853c0.152-22.449,9.336-34.371,48.93-40.852c16.963-2.775,69.205-6.346,68.804-45.406    C202.168,87.927,187.54,55.796,126.265,55.796z M105.247,144.826c-3.504,2.151-7.999,4.748-12.292,8.21V68.734    c15.4,3.365,33.708,12.898,33.707,39.21C126.663,118.607,125.275,132.532,105.247,144.826z"/>
+                </svg>
+              </svg>
+            </div>-->
+            Mein Lehrer wehrt sich!
+          </h2>
+          <p>Nach dem Datensschutzgesetz (DSGVO) muss die AfD alle Daten die sie über Lehrer, Professoren & Dozenten speichert herausgeben und darüber informieren.</p>
+          <p>Unser neustes Projekt <strong>Mein Lehrer wehrt sich</strong> erstellt dir eine formgerechte Anfrage. Damit kannst du die AfD nerven und herausfinden, was sie alles speichert. Die Anfrage musst du dann nur noch an die AfD schicken!</p>
+          <a href="https://piratenpartei-bw.de/mein-lehrer-wehrt-sich/" target="_blank" class="btn">
+            Jetzt Mitmachen!
+          </a>
+          <div class="footer">
+            <!--<div class="logo">
+              <img src="/img/piraten-bawü.svg" alt="Piraten Baden-Würtemberg">
+            </div>-->
+            <!--<div class="logo">
+              <img src="https://wiki.piratenpartei.de/wiki/images/8/8b/PP_Bund_Logo_RGB_quer_Kurz_weiss_v2.svg" alt="Piratenpartei Deutschland">
+            </div>-->
+            <!--<div class="logo">
+              <img src="/img/pirates-rainbow.svg" alt="Piratenpartei Deutschland">
+            </div>-->
+          </div>
+        </div>
+        <!--<div class="info-message">
+          Zur Zeit ist kein Denunziationsportal der AfD mehr funktionstüchtig.
+          <br><br>
+          Sobald die AfD ihre Formulare repariert hat, kannst du hier wieder Hetze melden!
+        </div>
+        <br><br>
+        <div class="support-message">
+          <h2>Unterstützung?</h2>
+          <ul>
+            <li>
+              Hilf uns bei der Europa Wahl teilnehmen zu dürfen! <a href="https://wiki.piratenpartei.de/wiki/images/e/eb/EU19_Unterstuetzer_Formular_II.pdf" target="_blank">Unterstützerformular</a>
+            </li>
+            <li>
+              Oder hilf dabei, dass wir solche Aktionen auch in Zukunft starten können! <a href="https://spenden.piratenpartei.de" target="_blank">Spenden</a>
+            </li>
+            <li>
+              Oder werde einfach <a href="https://www.piratenpartei.de/mithelfen/werde-pirat/" target="_blank">Mitglied!</a> Bei uns kann jeder mitmachen.
+            </li>
+          </ul>
+          <div class="logo">
+            <img src="https://wiki.piratenpartei.de/wiki/images/9/9e/PP_Bund_Logo_RGB_quer_Kurz_v2.svg" alt="Logo">
+          </div>
+        </div>-->
+        <br>
+      </div>
+    </header>
+    <div class="shariff" data-services="twitter,facebook,whatsapp,threema,telegram,diaspora,reddit,info" data-twitter-via="PiratenBW" data-title="Die AfD möchte über Hetze informiert werden. Da helfen wir doch gerne! #meinabgeordneterhetzt #piraten"></div>
+    <main>
+      <div class="project-description">
+        <h2>Was ist das hier?</h2>
+    		<p>Die Piratenpartei stellt sich entschieden gegen eine Kultur der Denunziation. Mit diesem Tool bieten wir euch die Möglichkeit, die Melde-Portale der AfD mit Fakten, Zitaten und humorvollen Inhalten zu füllen und so ein Zeichen gegen Denunziation zu setzen.</p>
+
+
+    		<h2>Wie funktioniert das?</h2>
+    		<p>
+          Per Klick auf den Button wird ein Zitat der AfD zufällig ausgewählt. Bist du damit zufrieden, kannst du es direkt an das Meldeportal der AfD per Klick auf den anderen Button senden.
+        </p>
+
+        <h2>Was ist der Hintergrund?</h2>
+        <p>
+          Wie in anderen Bundesländern bereits geschehen, fordert die AfD nun auch in Baden-Württemberg dazu auf, Lehrer und Professoren zu denunzieren, welche angeblich gegen die AfD gehetzt haben und so gegen ihre Neutralitätspflicht verstoßen haben sollen. Die Piratenpartei sieht darin neben enormen datenschutzrechtlichen Bedenken eine Form der Aufbringung der Gesellschaft gegeneinander. Denunziation gehört zu den Mitteln autoritärer Staaten, wir dagegen setzen auf einen starken Rechtsstaat. Anstelle von Denunziation setzt sich die Piratenpartei für das Prinzip der Aufklärung ein und fordert bereits seit Jahren eine stärkere politische Bildung der Schüler und Schülerinnen. Gemeinsam können wir ein Zeichen gegen die Denunziations-Kultur setzen. Die PIRATEN fordern hiermit alle auf, die Melde-Plattformen mit Zitaten der AfD und humorvollen Anfragen zu füllen. Dafür stellen wir diesen Generator zur Verfügung.
+        </p>
+
+        <h2>Was ist das Neutralitätsgebot?</h2>
+        <p>
+          Lehrer und auch Professoren sind beim Staat angestellt und zu politischer Neutralität in ihrer Funktion verpflichtet. Dies bedeutet, dass sie z.B. Parteien nicht in schlechtes Licht rücken oder Werbung für sie machen dürfen. Schüler und Studierende sollen nicht unter dem Einfluss der Lehrenden stehen. Lehrer und Professoren verpflichten sich allerdings auch dazu, für die freiheitlich demokratische Grundordnung einzustehen, also die Grundprinzipien unserer Demokratie zu achten. In diesem Rahmen gehört es auch zu ihrer Aufgabe, etwa über Parteien zu informieren die diese freiheitlich demokratische Grundordnung bedrohen.
+          Das Neutralitätsgebot verbietet es Lehrenden aber nicht, in eine Partei einzutreten und ihre politische Meinung als Privatperson kundzutun.
+        </p>
+
+        <h2>PIRATEN? Gibt's die noch?</h2>
+        <p>
+          Na klar! Wir sind immer noch da und kämpfen u.a. für Datenschutz und gegen Denunziation.<br>Mehr über uns: <a href="https://piratenpartei-bw.de">https://piratenpartei-bw.de</a><br>
+          Du möchtest mehr von uns sehen? <a href="https://piratenpartei-bw.de/eu-wahl-2019/">Dann unterstütze uns, damit wir wieder zur Europawahl antreten können!</a>
+        </p>
+      </div>
+
+    </main>
+    <footer>
+      <span>
+        Ein Service von den <a target="_blank" href="https://www.piraten-rlp.de">Piraten Rheinland-Pfalz<a/>
+      </span>
+      <div class="labels">
+        <a target="_blank" href="https://www.piraten-rlp.de">
+          <div class="label">
+            <img src="https://www.piraten-rlp.de/wp-content/uploads/2016/02/PP_Logo_Rheinland-Pfalz_orange.png">
+          </div>
+        </a>
+        <!--<div class="label">
+          <img src="https://piratenpartei-bw.de/wp-content/uploads/logo_piratenbw.png">
+        </div>-->
+      </div>
+      <br>
+      <div>
+        <a href="https://piratenpartei-bw.de/impressum/" target="_blank">Impressum</a>
+        |
+        <a href="https://piratenpartei-bw.de/datenschutzerklaerung/" target="_blank">Datenschutz</a>
+      </div>
+    </footer>
+
+    <script src="js/shariff/shariff.complete.js"></script>
+  </body>
+</html>

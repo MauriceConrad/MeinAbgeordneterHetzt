@@ -1,0 +1,15 @@
+{
+  "name": "dom",
+  "version": "1.0.0",
+  "description": "DOM",
+  "main": "dom.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dom",
+    "html"
+  ],
+  "author": "Maurice Conrad",
+  "license": "ISC"
+}
