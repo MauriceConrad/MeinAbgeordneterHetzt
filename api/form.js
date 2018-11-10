@@ -67,7 +67,15 @@ module.exports = async function(req, res, next) {
 
   const methodHandlers = {
     async frame() {
-      return serviceRecord.content;
+      const serviceHTMLSite = await request.promise(service, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0.1 Safari/605.1.15"
+        }
+      });
+
+      return get123Form(serviceHTMLSite);
+
+      //return serviceRecord.content;
     },
     async form() {
 
@@ -82,6 +90,7 @@ module.exports = async function(req, res, next) {
       });
       const parser = new htmlParser.Parser(handler);
       parser.parseComplete(serviceHTMLSite.body);
+
 
       const dom = new DOM(handler.dom);
 
@@ -118,15 +127,19 @@ function getForm(dom) {
 
     const inputs = getInputElements(form);
 
+
     //console.log("\n");
 
     var requiredScore = 0;
 
 
     for (let input of inputs) {
-      const type = getInputType(input);
 
-      //console.log(input, input.attributes);
+      const type = getInputType.byNode(input);
+
+      console.log(input.attributes, type);
+
+      //console.log(input, type);
 
       if (requiredTypes.includes(type.name)) {
         requiredScore++;
@@ -142,11 +155,12 @@ function getForm(dom) {
     //return form.attributes.method === "post" || form.innerText.search(/[a-z]/) > -1;
   });
 
+
   const userInputElements = getInputElements(form);
 
 
   const inputs = userInputElements.map(function(inputElement) {
-    const type = getInputType(inputElement);
+    const type = getInputType.byNode(inputElement);
 
     //console.log(inputElement);
 
@@ -163,4 +177,68 @@ function getForm(dom) {
 
   return inputs;
 
+}
+
+
+function get123Form(html) {
+
+  const body = html.body;
+
+  const jsonStartExpr = /\.withSerializedFormData\( \[/;
+  const jsonEndExpr = /\s{1,}\.withApiRootAddress/;
+
+  const serialStr = body.substring(body.search(jsonStartExpr), body.search(jsonEndExpr));
+
+  const json = serialStr.substring(serialStr.indexOf("["), serialStr.lastIndexOf("]") + 1);
+
+  const data = JSON.parse(json);
+
+  const formData = [];
+
+  lookUpArray(data, function(item) {
+    if (typeof item === "object" && item != null && "label" in item && "labelText" in item.label && item.parentArray[1]) {
+      const text = item.label.labelText;
+      const id = item.parentArray[1];
+
+      const type = getInputType.byInfo([
+        text
+      ]);
+
+      formData.push({
+        tagName: type.name === "message" ? "textarea" : "input",
+        name: id,
+        type: type.name,
+        defaultValue: "",
+        options: []
+      });
+
+    }
+  });
+
+
+
+  return formData;
+}
+
+
+function lookUpArray(array, handler) {
+  const arrays = [];
+
+  function look(arr) {
+    for (let item of arr) {
+      if (item) {
+        item.parentArray = arr;
+      }
+      if (handler(item)) {
+        array.push(item);
+      }
+      if (item instanceof Array) {
+        look(item);
+      }
+    }
+  }
+
+  look(array);
+
+  return arrays;
 }

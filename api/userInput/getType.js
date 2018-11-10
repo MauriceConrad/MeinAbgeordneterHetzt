@@ -5,43 +5,58 @@ const inputTypesSourceFile = __dirname + "/input-types.json";
 const contentTypes = fs.readJsonSync(inputTypesSourceFile);
 
 
-module.exports = function getInputType(node) {
+module.exports = {
+  byNode(node) {
 
-  const relatedWrapContainer = node.closestByHandler(function(parent) {
-    return parent.innerText.length < 100 && parent.innerText.search(/[a-z]{3,}/i) > -1;
-    return //parent.classList.includes("cntctfrm_field_wrap");
-  });
+    const relatedWrapContainer = node.closestByHandler(function(parent) {
+      return parent.innerText.length < 100 && parent.innerText.search(/[a-z]{3,}/i) > -1;
+      return //parent.classList.includes("cntctfrm_field_wrap");
+    });
 
-  var labelText;
+    var labelText;
 
-  if (relatedWrapContainer) {
-    labelText = relatedWrapContainer.innerText;
+    if (relatedWrapContainer) {
+      labelText = relatedWrapContainer.innerText;
+    }
+
+    //console.log(node.attributes.id);
+
+    const generalInfo = [
+      node.attributes.type,
+      node.attributes.placeholder,
+      node.tagName,
+      labelText
+    ].concat(node.classList).concat(node.attributes.name, node.attributes.id).filter(item => item);
+
+    // Get best fitting type of content
+    const bestType = getBestFittingType(contentTypes, generalInfo);
+
+    bestType.labelText = labelText;
+
+    if (bestType.rank === 0) {
+      return {
+        name: "undefined",
+        rank: 0
+      };
+    }
+
+    //console.log(node.tagName, node.attributes.name, labelText, bestType, "\n");
+
+    return bestType;
+  },
+  byInfo(generalInfo) {
+    // Get best fitting type of content
+    const bestType = getBestFittingType(contentTypes, generalInfo);
+
+    if (bestType.rank === 0) {
+      return {
+        name: "undefined",
+        rank: 0
+      };
+    }
+
+    return bestType;
   }
-
-  //console.log(node.attributes.id);
-
-  const generalInfo = [
-    node.attributes.type,
-    node.attributes.placeholder,
-    node.tagName,
-    labelText
-  ].concat(node.classList).concat(node.attributes.name, node.attributes.id).filter(item => item);
-
-  // Get best fitting type of content
-  const bestType = getBestFittingType(contentTypes, generalInfo);
-
-  bestType.labelText = labelText;
-
-  if (bestType.rank === 0) {
-    return {
-      name: "undefined",
-      rank: 0
-    };
-  }
-
-  //console.log(node.tagName, node.attributes.name, labelText, bestType, "\n");
-
-  return bestType;
 };
 
 function getBestFittingType(types, info) {

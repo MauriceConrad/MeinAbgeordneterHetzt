@@ -6,14 +6,16 @@
       "Nachricht",
       "Beschwerde",
       "Vorfall",
-      "Sachverhalt"
+      "Sachverhalt",
+      "Geschehen"
     ],
     "fill": "generate/message"
   },
   {
     "name": "checkbox",
     "keywords": [
-      "checkbox"
+      "checkbox",
+      "choice"
     ],
     "fill": "generate/checkbox"
   },

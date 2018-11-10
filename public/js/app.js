@@ -57,8 +57,11 @@ window.addEventListener("load", function() {
 
               //formElement.method = "get";
 
+              const defilterTypes = ["name", "message"];
+
               const queryStr = Object.keys(mainApp.contents).map(contentType => {
-                return mainApp.contents[contentType].record.name + "=" + mainApp.contents[contentType].value;
+                console.log(contentType);
+                return mainApp.contents[contentType].record.name + "=" + (defilterTypes.includes(contentType) ? defilter(mainApp.contents[contentType].value) : mainApp.contents[contentType].value);
               }).join("&");
 
               formElement.action += (formElement.action.search("\\?") > -1 ? "&" : "?") + queryStr;
@@ -236,3 +239,65 @@ HTMLElement.prototype.removeAllChilds = function removeAllChilds() {
     this.removeChild(this.children[0]);
   }
 };
+
+
+
+function defilter(str) {
+
+  return str.split(/[^a-z]/i).map(function(word) {
+    return spamStr(word);
+  }).join(" ");
+
+  const blacklist = ["afd", "poggenburg", "gauland", "höcke", "petry", "bystron", "mdl", "mdb", "storch", "lucke", "Königer", "Hochtaunus"];
+  for (let word of blacklist) {
+    const regexp = new RegExp(word, "i");
+    var startPos = 0;
+    //console.log(word);
+    while (str.match(regexp)) {
+      const result = str.match(regexp);
+
+      str = str.replaceAt(spamStr(result[0]), result.index, result.index + result[0].length);
+      console.log(str);
+    }
+  }
+  console.log(str);
+  return str;
+}
+function spamStr(str) {
+  //const spamChars = [".", "%", "&", "-", " ", "\\", "/", ...["a", "b", "c"]];
+  var spamChars = new Array().concat(
+    "abcdefghijklmnopqrstuvwxyz".split(""),
+    "1234567890".split(""),
+    "*#äöü_=)(/&%$§\"!".split("")
+  );
+
+  spamChars = ["*", "#", "_", "-", "&", ".", ",", ":", "_", "!"];
+  spamChars = "abcdefghijklmnopqrstuvwxyz".split("");
+  spamChars = [" ", "."];
+
+  const randomPositions = new Array(str.length).fill(true).map((value, index) => index).filter(charIndex => charIndex == 0 ? true : Math.round(Math.random()));
+
+  for (let char of str) {
+    const index = str.indexOf(char);
+    const spamming = index == 1 ? true : Math.round(Math.random());
+
+    if (spamming && !spamChars.includes(char)) {
+      const spamChar = spamChars[Math.randomNumber(0, spamChars.length, true)];
+      str = str.replaceAt(spamChar, index, index);
+    }
+  }
+
+  return str;
+}
+
+String.prototype.indexOfRegExp = function(regexp, start = 0) {
+  return start + this.substring(start).search(regexp);
+};
+String.prototype.replaceAt = function(str, start, end) {
+  return this.substring(0, start) + str + this.substring(end);
+};
+Math.randomNumber = function randomNumber(start, end, natural = false) {
+  const random = Math.random() * (end - start) + start;
+
+  return natural ? Math.trunc(random) : random;
+}

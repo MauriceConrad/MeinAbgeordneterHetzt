@@ -19,7 +19,7 @@
     <link href="js/shariff/shariff.complete.css" rel="stylesheet">
 
     <script src="js/vue.js" charset="utf-8"></script>
-    <script src="js/helper.js" charset="utf-8"></script>
+    <!--<script src="js/helper.js" charset="utf-8"></script>-->
     <script src="js/app.js" charset="utf-8"></script>
     <script src="js/hetz.js" charset="utf-8" async></script>
     <!--<script src="polyfill/promise.js" charset="utf-8"></script>-->
@@ -174,7 +174,7 @@
     </main>
     <footer>
       <span>
-        Ein Service von den <a target="_blank" href="https://www.piraten-rlp.de">Piraten Rheinland-Pfalz<a/>
+        Ein Service von den <a target="_blank" href="https://www.piraten-rlp.de">Piraten Rheinland-Pfalz<a/> & <a href="http://piratenpartei-bw.de/" target="_blank">Piraten Baden-Würtemberg</a>
       </span>
       <div class="labels">
         <a target="_blank" href="https://www.piraten-rlp.de">
@@ -182,9 +182,9 @@
             <img src="https://www.piraten-rlp.de/wp-content/uploads/2016/02/PP_Logo_Rheinland-Pfalz_orange.png">
           </div>
         </a>
-        <!--<div class="label">
+        <div class="label">
           <img src="https://piratenpartei-bw.de/wp-content/uploads/logo_piratenbw.png">
-        </div>-->
+        </div>
       </div>
       <br>
       <div>
@@ -195,5 +195,14 @@
     </footer>
 
     <script src="js/shariff/shariff.complete.js"></script>
+
+    <script type="text/javascript">
+      if (window.self != window.top) {
+
+        const styleLink = Array.from(document.getElementsByTagName("link")).find(link => link.rel === "stylesheet");
+
+        //styleLink.href = "custom.css";
+      }
+    </script>
   </body>
 </html>

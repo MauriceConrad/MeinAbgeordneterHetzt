@@ -1,5 +1,13 @@
 [
   {
+    "id": "AfD_Sachsen-Anhalt",
+    "title": "AfD Sachsen-Anhalt",
+    "url": "https://www.afdfraktion-lsa.de/meldeportal/",
+    "method": "form",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/5/53/Wappen_Sachsen-Anhalt.svg",
+    "disabled": false
+  },
+  {
     "id": "AfD_Brandenburg",
     "title": "AfD Brandenburg",
     "url": "https://neutrale-schulen-brandenburg.de/#verstoss",
@@ -13,7 +21,7 @@
     "url": "https://www.123formbuilder.com/sfnew2.php?s=4349129",
     "method": "frame",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Coat_of_arms_of_Berlin.svg",
-    "disabled": false,
+    "disabled": true,
     "content": [
       {
         "tagName": "input",
@@ -38,7 +46,7 @@
       },
       {
         "tagName": "textarea",
-        "name": "control46766916",
+        "name": "control46814168",
         "type": "message",
         "defaultValue": "",
         "options": []
@@ -55,9 +63,9 @@
   {
     "id": "AfD_Hamburg",
     "title": "AfD Hamburg",
-    "url": "https://afd-fraktion-hamburg.de/tipps-zum-vorgehen-bei-verstoessen/#cntctfrm_contact_form",
+    "url": "https://afd-fraktion-hamburg.de/tipps-zum-vorgehen-bei-verstoessen/",
     "method": "form",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/5/5d/DEU_Hamburg_COA.svg",
-    "disabled": false
+    "disabled": true
   }
 ]

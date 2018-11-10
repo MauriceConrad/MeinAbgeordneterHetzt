@@ -24,13 +24,13 @@ module.exports = async function(req, res, next) {
       message: {
         description: "Nachricht",
         props: {
-          value: intro + ":\n" + quote.message
+          value: intro + ":\n" + quote.message + " " + randomChars(7)
         }
       },
       name: {
         description: "Lehrer",
         props: {
-          value: quote.author
+          value: quote.author + " " + randomChars(5)
         }
       },
       firstname: {
@@ -46,3 +46,8 @@ module.exports = async function(req, res, next) {
 
   next();
 };
+
+function randomChars(count) {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  return new Array(count).fill("a").map(char => alphabet[Math.randomNumber(0, alphabet.length, true)]).join("")
+}
